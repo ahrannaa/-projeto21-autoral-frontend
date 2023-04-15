@@ -1,13 +1,15 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+
 export default function HomePage(){
-  
+
   return (
     <Wrapper>
     <NameApp>
       <h1>Beauty Mate</h1>
-      <Button><p>Sign Up</p></Button>
-      <Button><p>Sign In</p></Button>
+     <Link to="/signUp"><Button><p>Sign Up</p></Button></Link>
+     <Link to ="/signIn"><Button><p>Sign In</p></Button></Link>
     </NameApp>
     </Wrapper>
   )

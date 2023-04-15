@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CharmeFemininoPage from "./pages/CharmeFemininoPage.js";
 import CompaniesPage from "./pages/CompaniesPage.js";
@@ -7,6 +8,7 @@ import SignInPage from "./pages/SignInPage.js";
 import SignUpPage from "./pages/SignUpPage.js";
 
 export default function App() {
+ 
   return (
     <>
       <BrowserRouter>
