@@ -64,6 +64,7 @@ const Wrapper = styled.div`
   background-color: #F2F2F2;
   
   h2 {
+    margin-left: 50px;
     color: #8a5755;
     font-family: monospace;
   }

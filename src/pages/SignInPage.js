@@ -4,18 +4,8 @@ import { Link } from "react-router-dom";
 export default function SignInPage(){
   return (
     <Wrapper>
-      <h2>vamos entrar!</h2>
+      <h2>Vamos entrar!</h2>
       <Form>
-      <div>
-        <Label>Nome:</Label>
-        <Input
-        value={name}
-        onChange={e => setName(e.target.value)}
-        type="text"
-        required
-        name="name"
-        placeholder="Beauty Mate"></Input>
-      </div>
       <div>
         <Label>Email:</Label>
         <Input 
@@ -36,19 +26,9 @@ export default function SignInPage(){
         name="name"
         placeholder="******"></Input>
       </div>
-      <div>
-        <Label>Phone:</Label>
-        <Input 
-        value={name}
-        onChange={e => setName(e.target.value)}
-        type="text"
-        required
-        name="name"
-        placeholder="(**)999999999"></Input>
-      </div>
-      <Button type="submit">Criar conta</Button>
+      <Button type="submit">Entrar</Button>
       <StyleLink>
-        <Link to="/signIn">Já tem uma conta? Entre agora!</Link>
+        <Link to="/signUp">Não tem conta? Cadastre-se</Link>
       </StyleLink>
       </Form>
     </Wrapper>
@@ -64,6 +44,7 @@ const Wrapper = styled.div`
   background-color: #F2F2F2;
   
   h2 {
+    margin-left: 50px;
     color: #8a5755;
     font-family: monospace;
   }
