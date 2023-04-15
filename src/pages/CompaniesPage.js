@@ -1,7 +1,28 @@
 import styled from "styled-components";
 
-export default function CompaniesPage(){
-  
+export default function CompaniesPage() {
+  const { user } = useContext(UserContext);
+  const [company, setCompany] = useState([])
+
+  useEffect(() => {
+    console.log("use effect")
+    const URL = "http://localhost:5000/transaction"
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    axios.get(URL, config)
+      .then((response) => {
+        console.log(response)
+        setExtrato(response.data.transactions)
+      })
+      .catch((error) => console.log(error))
+
+  }, [user]);
+
   return (
     <Wrapper>
       <Title>Beauty Mate</Title>

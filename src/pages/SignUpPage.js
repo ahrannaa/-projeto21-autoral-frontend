@@ -1,11 +1,39 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function SignUpPage(){
+export default function SignUpPage() {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [phone, setPhone] = useState("")
+
+  let navigate = useNavigate();
+
+  const registerUser = async (e) => {
+     e.preventDefault()
+     const URL = "http://localhost:4000/users/sign-up"
+ 
+     const body = {
+       name: name,
+       email: email,
+       password: password,
+       phone: phone
+     }
+     
+      try {
+       const response = await axios.post(URL, body)
+       navigate("../signIn", { replace: true });
+      } catch (err) {
+       alert(`error: ${err.response?.data}`)
+     }
+   }
+  
   return (
     <Wrapper>
       <h2>crie sua conta para continuar!</h2>
-      <Form>
+      <Form onSubmit={registerUser}>
       <div>
         <Label>Nome:</Label>
         <Input
@@ -19,31 +47,31 @@ export default function SignUpPage(){
       <div>
         <Label>Email:</Label>
         <Input 
-        value={name}
-        onChange={e => setName(e.target.value)}
+        value={email}
+        onChange={e => setEmail(e.target.value)}
         type="text"
         required
-        name="name"
+        name="email"
         placeholder="BeautyMate@email.com"></Input>
       </div>
       <div>
         <Label>Senha:</Label>
         <Input 
-        value={name}
-        onChange={e => setName(e.target.value)}
+        value={password}
+        onChange={e => setPassword(e.target.value)}
         type="text"
         required
-        name="name"
+        name="password"
         placeholder="******"></Input>
       </div>
       <div>
         <Label>Phone:</Label>
         <Input 
-        value={name}
-        onChange={e => setName(e.target.value)}
+        value={phone}
+        onChange={e => setPhone(e.target.value)}
         type="text"
         required
-        name="name"
+        name="phone"
         placeholder="(**)999999999"></Input>
       </div>
       <Button type="submit">Criar conta</Button>

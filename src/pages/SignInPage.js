@@ -1,29 +1,58 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
+import axios from "axios";
 
-export default function SignInPage(){
+export default function SignInPage() {
+  const { setUser } = useContext(UserContext);
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  let navigate= useNavigate()
+
+  const userLogin = async (e) => {
+    e.preventDefault()
+    const URL = "http://localhost:4000/users/sign-in"
+
+    const body = {
+      email: email,
+      password: password,
+    }
+
+    try {
+      const response = await axios.post(URL, body)
+      console.log(response)
+      setUser(response.data)
+      navigate("../company", { replace: true })
+    } catch (err) {
+      console.log(err)
+      alert(`error: ${err.message}`)
+    }
+  }
+
   return (
     <Wrapper>
       <h2>Vamos entrar!</h2>
-      <Form>
+      <Form onSubmit={userLogin}>
       <div>
         <Label>Email:</Label>
         <Input 
-        value={name}
-        onChange={e => setName(e.target.value)}
+        value={email}
+        onChange={e => setEmail(e.target.value)}
         type="text"
         required
-        name="name"
+        name="email"
         placeholder="BeautyMate@email.com"></Input>
       </div>
       <div>
         <Label>Senha:</Label>
         <Input 
-        value={name}
-        onChange={e => setName(e.target.value)}
+        value={password}
+        onChange={e => setPassword(e.target.value)}
         type="text"
         required
-        name="name"
+        name="password"
         placeholder="******"></Input>
       </div>
       <Button type="submit">Entrar</Button>
