@@ -9,7 +9,7 @@ import { useState, useContext } from "react";
 import { useEffect } from "react";
 
 
-export default function CharmeFemininoPage(props){
+export default function CompanyPage(props){
   const { id } = useParams()
   const { user } = useContext(UserContext);
   const [companyDetails, setCompanyDetails] = useState({})
