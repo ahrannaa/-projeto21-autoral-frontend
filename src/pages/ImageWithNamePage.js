@@ -5,7 +5,7 @@ const ImageWithName = ({ src, name }) => {
 
   return (
     <div style={{ position: 'relative' }}>
-      <img src={src} alt="" style={{  flexBasis: '33%', margin: '0 10px',  width: '400px', height: '450px', opacity : 0.6,}} />
+      <img src={src} alt="" style={{  flexBasis: '33%', margin: '5px 20px',  width: '450px', height: '450px', opacity : 0.6,}} />
       <div
         style={{
           position: 'absolute',

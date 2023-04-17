@@ -1,21 +1,54 @@
 import styled from "styled-components";
-import TopBarPage from "./TopBarPage";
+import axios from "axios";
+import { UserContext } from "../contexts/UserContext";
+import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { useEffect } from "react";
+import { useParams } from 'react-router';
 
-export default function ServicePage(){
-  return (
-    <>
-    <TopBarPage></TopBarPage>
-     <Container>
-      <ServiceWrapper>
-        <Service>
-          <p>Coloração cabelos longos</p>
-          <p>Valor: R$ 150,00</p>
-          <button>agendar</button>
-        </Service>
-      </ServiceWrapper>
-    </Container>
-    </> 
-  )
+export default function ServicePage(props) {
+  const { user } = useContext(UserContext);
+  const [categoryDetails, setCategoryDetails] = useState({})
+  const { categoryId } = useParams();
+
+  useEffect(() => {
+
+    const URL = `http://localhost:4000/categories/${categoryId}/service`
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    axios.get(URL, config)
+      .then((response) => {
+        setCategoryDetails(response.data)
+      })
+      .catch((error) => console.log(error))
+  }, [user.token, categoryId]);
+
+  let serviceComponent
+
+  if (categoryDetails.service) {
+    serviceComponent =
+      <>
+        <TopBar></TopBar>
+        <Container>
+          <ServiceWrapper>
+            {categoryDetails.service.map((service) => (
+              <Service>
+                <p>{service.name}</p>
+                <p>Valor: R${service.price},00</p>
+                <Link to={`/schedule?serviceId=${service.id}`} service={service}><button key={service.id}>agendar</button></Link>
+              </Service>
+            ))}
+          </ServiceWrapper>
+        </Container>
+      </>
+  }
+  return serviceComponent
+
 };
 
 const Container = styled.div`
@@ -54,4 +87,12 @@ const Service = styled.div`
    cursor: pointer;
    margin-right: 10px;
   }
-`
+`;
+const TopBar = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #8a5755;
+  height: 80px;
+  padding: 0 20px;
+`;

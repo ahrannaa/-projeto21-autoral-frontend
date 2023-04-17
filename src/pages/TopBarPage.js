@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
-export default function TopBarPage(){
+export default function TopBarPage(props){
+  const {companyDetails} = props
  
   return (
    <TopBar>
     <LinkWrapper>
-      <Link href="#">Charme Feminino</Link>
+      <Link href="#">{companyDetails.name}</Link>
     </LinkWrapper>
     </TopBar>
   )

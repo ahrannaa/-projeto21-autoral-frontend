@@ -22,9 +22,8 @@ export default function SignInPage() {
 
     try {
       const response = await axios.post(URL, body)
-      console.log(response)
       setUser(response.data)
-      navigate("../company", { replace: true })
+      navigate("../companies", { replace: true })
     } catch (err) {
       console.log(err)
       alert(`error: ${err.message}`)
@@ -98,6 +97,11 @@ const Input = styled.input`
     line-height: 25px;
     padding: 10px;
   }
+
+  @media (max-width: 768px) {
+    width: 90%;
+    margin: 0 auto 10px;
+  }
 `;
 const Label = styled.label`
   margin-right: 10px;
@@ -113,6 +117,12 @@ const Button = styled.button`
   margin-left: 50px;
   cursor: pointer;
   margin-top: 20px;
+
+  @media (max-width: 768px) {
+    padding: 10px 30px;
+    margin-left: 0;
+    width: 100%;
+  }
 `;
 const Form = styled.form`
   display: flex;

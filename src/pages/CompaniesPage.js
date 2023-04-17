@@ -1,12 +1,21 @@
 import styled from "styled-components";
+import axios from "axios";
+import { UserContext } from "../contexts/UserContext";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { useEffect } from "react";
+import { Dropdown, DropdownButton } from 'react-bootstrap';
+
 
 export default function CompaniesPage() {
   const { user } = useContext(UserContext);
-  const [company, setCompany] = useState([])
+  console.log(user.token)
+  const [companies, setCompanies] = useState([])
+  console.log(companies)
 
   useEffect(() => {
     console.log("use effect")
-    const URL = "http://localhost:5000/transaction"
+    const URL = "http://localhost:4000/companies"
 
     const config = {
       headers: {
@@ -17,20 +26,22 @@ export default function CompaniesPage() {
     axios.get(URL, config)
       .then((response) => {
         console.log(response)
-        setExtrato(response.data.transactions)
+        setCompanies(response.data)
       })
       .catch((error) => console.log(error))
-
-  }, [user]);
+}, [user.token]);
 
   return (
     <Wrapper>
-      <Title>Beauty Mate</Title>
-      <ButtonsContainer>
-        <Button><ButtonText>Charme Feminino</ButtonText></Button>
-        <Button><ButtonText>Barba e Estilo</ButtonText></Button>
-      </ButtonsContainer>
-    </Wrapper>
+    <Title>Beauty Mate</Title>
+    <StyledDropdownButton title="Empresas">
+      {companies.map((company) => (
+        <Dropdown.Item key={company.id} as={Link} to={`/companies/${company.id}/categories`}>
+          {company.name}
+        </Dropdown.Item>
+      ))}
+    </StyledDropdownButton>
+  </Wrapper>
   );
 };
 
@@ -98,4 +109,24 @@ const Button = styled.button`
 
 const ButtonText = styled.p`
   margin: 0;
+`;
+
+const StyledDropdownButton = styled(DropdownButton)`
+  background-color: #8a5755;
+  color: #dc968d;
+  font-size: 16px;
+  padding: 20px 0px;
+  margin-bottom:70px;
+  
+  & .dropdown-item {
+    color: white;
+    font-size: 20px;
+    margin-top: 50px;
+    padding: 20px 50px;
+    text-decoration-line: none;
+    
+    &:hover {
+      background-color: #dc968d;
+    }
+  }
 `;
